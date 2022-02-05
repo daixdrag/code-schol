@@ -1,0 +1,130 @@
+const leia = require("readline-sync")
+
+
+numero=1
+let escolha = 1
+let nomemoeda = []
+let taxas = []
+
+const fs = require("fs")
+
+
+console.log("\nConversor de moedas\n");
+
+while(escolha !=5) {
+    console.log("1 converter moedas                           2 taxas de conversão")
+    console.log("3 atualizar taxas de conversão               4 cadastrar moedas e tarifas")               
+    console.log("5 interromper o programa")
+    
+    console.log("\n selecione a opção a ser utilizada: ")
+    escolha = leia.question()
+    console.clear()
+    
+
+    switch(escolha){
+
+        case '1': convert();
+        break;
+
+        case '2': extarifa();
+        break;
+
+        case '3': atualizartarifa();
+        break;
+
+        case '4': cadastro();
+        break;
+
+        case '5': console.log("Programa interrompido");
+        break;
+
+        default: 
+        console.log("Valor inserido inválido")
+        enter()
+        break;
+    }
+}
+
+
+  function convert(){
+    console.log("Conversor de moedas \n")
+    nomemoeda = JSON.parse(fs.readFileSync("Moedas"))
+    console.log(nomemoeda)
+    console.log("Escolha o número do par de moedas a ser convertido: ")
+    a = leia.questionInt()
+    console.clear()
+    taxas = JSON.parse(fs.readFileSync("Taxas"))
+    m = taxas[a]
+    console.log("Informe o valor da moeda de origem: ")
+    b = leia.questionFloat()
+    console.clear()
+    console.log(b,nomemoeda[a-1],"valem", b*taxas[a-1])
+    enter()
+    
+}
+
+function extarifa() {
+    console.log(taxas)
+    enter()
+    
+
+}
+
+function enter() {
+    console.log("Aperte \"enter\" para continuar.");
+        leia.question();
+        console.clear()
+}
+
+function atualizartarifa() {
+    console.log(nomemoeda)
+    console.log("Escolho o número do par de moedas a ter sua taxa de conversão alterada: ")
+    y = leia.questionInt()
+    console.log("O valor atual da taxa de conversão entre essas moedas é de: ",taxas[y-1],"qual será o novo valor ?")
+    taxas[y-1] = leia.questionFloat()
+    enter()
+
+}
+
+
+
+
+
+function cadastro() {
+    function auxcadastro(num, mdo, mde){
+        convertjson = {
+            'Número': num,
+            "Moeda de origem": mdo,
+            "Moeda de destino": mde
+            
+        }
+        
+        nomemoeda.push(convertjson)
+        fs.writeFileSync("Moedas", JSON.stringify(nomemoeda))
+        }
+        console.log("Digite o nome da moeda de origem: ")
+        morigem = leia.question()
+        console.clear()
+        console.log("Digite o nome da moeda de destino: ")
+        mestino = leia.question()
+        console.clear()
+        auxcadastro(numero,morigem,mestino)
+        function auxtarifa(txc){
+            convertjson = [txc]
+            taxas.push(convertjson)
+            numero++
+            fs.writeFileSync("Taxas", JSON.stringify(taxas))
+        }
+      
+    
+    
+    
+    console.log("Digite o valor da taxa de conversão, escreva com ponto ao invés de vírgula: ")
+    aux=leia.questionFloat()
+    taxa = aux
+    auxtarifa(taxa)
+    console.clear()
+    
+    
+    
+}
