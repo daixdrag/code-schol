@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Média anual</title>
+
+
+<script>
+    function calculator(){
+      let notas1 = document.getElementById("not1")
+      let notas2 = document.getElementById("not2")
+      let notas3 = document.getElementById("not3")
+      let notas4 = document.getElementById("not4")
+      let diplina = document.getElementById("disc")
+      
+            Number(notas1.value)
+            Number(notas2.value)
+            Number(notas3.value)
+            Number(notas4.value)
+
+            let media = (parseFloat(notas1.value) + parseFloat(notas2.value) + parseFloat(notas3.value) + parseFloat(notas4.value)) / 4
+            document.getElementById('a').innerHTML = `Média: ${media}!`
+            
+
+            if(media >=6){
+                condicao="Aprovado"
+                document.getElementById('b').innerHTML = `Condição: ${condicao}!`
+            }
+            else{
+                condicao="Reprovado"
+                document.getElementById('b').innerHTML = `Condição: ${condicao}!`
+            }
+            
+            }
+    
+</script>
+</head>
+
+<body>
+    <h1>Calculador de média anual.</h1>
+    
+    <form action="calcularMedias">
+        <input type="text" name="disciplina" placeholder="Disciplina" id="disc">
+        <input type="text" name="1bm" id="not1" placeholder="Primeiro bimestre" >
+        <input type="text" name="2bm" id="not2" placeholder="Segundo bimestre" >
+        <input type="text" name="3bm" id="not3" placeholder="Terceiro bimestre">
+        <input type="text" name="4bm" id="not4" placeholder="Quarto bimestre">
+        <input type="button" onclick="calculator()" value="Calcular Média">
+    </form>
+
+    <div class="resul">
+        <p id="a">Média: </p>
+        <p id="b">Condição: </p>
+    </div>
+   
+
+    
+
+
+</body>
+</html>
